@@ -24,6 +24,8 @@
 		04C0DE802A6E74E500AC141A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04C0DE832A6E74E500AC141A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04C0DE852A6E74E500AC141A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04D73E0F2A6E8202004611F2 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-VariableFont_wght.ttf"; path = "../../../../../../../Downloads/Montserrat/Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		04D73E102A6E8202004611F2 /* Montserrat-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Italic-VariableFont_wght.ttf"; path = "../../../../../../../Downloads/Montserrat/Montserrat-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		04C0DE762A6E74E300AC141A /* Vaccination NG */ = {
 			isa = PBXGroup;
 			children = (
+				04D73E0D2A6E81DA004611F2 /* Resources */,
 				04C0DE772A6E74E300AC141A /* AppDelegate.swift */,
 				04C0DE792A6E74E300AC141A /* SceneDelegate.swift */,
 				04C0DE7B2A6E74E300AC141A /* ViewController.swift */,
@@ -65,6 +68,23 @@
 				04C0DE852A6E74E500AC141A /* Info.plist */,
 			);
 			path = "Vaccination NG";
+			sourceTree = "<group>";
+		};
+		04D73E0D2A6E81DA004611F2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				04D73E0E2A6E81E8004611F2 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		04D73E0E2A6E81E8004611F2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				04D73E102A6E8202004611F2 /* Montserrat-Italic-VariableFont_wght.ttf */,
+				04D73E0F2A6E8202004611F2 /* Montserrat-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
