@@ -21,6 +21,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Loading Basic Designs
+        loadBasicDesigns()
+    }
+
+    @IBAction func loginPressed(_ sender: UIButton) {
+        
+    }
+    
+    func loadBasicDesigns() {
         // Setting up the Icons for Emailand Passwords in the left.
         emailIcon.image = UIImage(named: "mail")
         passwordIcon.image = UIImage(named: "lock")
@@ -43,21 +52,27 @@ class ViewController: UIViewController {
         passwordField.rightView = passwordContentView
         passwordField.rightViewMode = .always
         
-        // Labels Design
+        // Text / Labels Design
         let resetPasswordUnderlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
         let resetPasswordUnderlineAttributedString = NSAttributedString(string: "Reset Password", attributes: resetPasswordUnderlineAttribute)
-        
+
         resetPasswordLabel.attributedText = resetPasswordUnderlineAttributedString
-        
+
         let createAccountUnderlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
         let createAccountUnderlineAttributedString = NSAttributedString(string: "Create Account", attributes: createAccountUnderlineAttribute)
-        
+
         createAccountLabel.attributedText = createAccountUnderlineAttributedString
         
-        resetPasswordLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        createAccountLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        loginButton.titleLabel?.font = UIFont(name: K.colors.boldFont, size: 20)
+        
+        // Adding Boarders in Email and Password field
+        emailTextField.layer.cornerRadius = 08
+        emailTextField.layer.borderWidth = 3
+        emailTextField.layer.borderColor = K.colors.primaryColor
+        
+        passwordField.layer.cornerRadius = 08
+        passwordField.layer.borderWidth = 3
+        passwordField.layer.borderColor = K.colors.primaryColor
     }
-
-
 }
 
