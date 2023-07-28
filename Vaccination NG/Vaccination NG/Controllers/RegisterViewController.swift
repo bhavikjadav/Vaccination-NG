@@ -7,6 +7,8 @@
 
 import UIKit
 import Planet
+import FirebaseAuth
+import FirebaseFirestore
 
 class RegisterViewController: UIViewController {
     
@@ -16,20 +18,95 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var phoneNumberField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var reEnterPasswordField: UITextField!
+    @IBOutlet weak var signUpButton: UIButton!
     
     let emailIcon = UIImageView()
     let userIcon = UIImageView()
     let lockIcon = UIImageView()
     let lockIcon2 = UIImageView()
     
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        passwordField.delegate = self
         
         // Country Code Selection Functionality
         countryCodeTextField.addTarget(self, action:#selector(textDidBeginEditing), for: UIControl.Event.editingDidBegin)
         
         // Loading Basic Designs
         loadBasicDesigns()
+        signUpButton.isEnabled = false
+    }
+    
+    @IBAction func signUpButtonPressed(_ sender: UIButton) {
+        
+        if let username = userNameTextField.text, let email = emailTextField.text, let countryCode = countryCodeTextField.text, let phoneNumber = phoneNumberField.text, let password = passwordField.text, let reEnteredPassword = reEnterPasswordField.text {
+            
+            if password == reEnteredPassword {
+                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    if let e = error {
+                        print(e)
+                    } else {
+                        print("Success")
+                    }
+                }
+            }
+            
+            // Storing the user's data in the firebase cloud
+            var ref: DocumentReference? = nil
+            ref = db.collection("users").addDocument(data: [
+                "username": username,
+                "email": email,
+                "country_code": countryCode,
+                "phone_number": phoneNumber
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document added with ID: \(ref!.documentID)")
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Validations on Text Fields
+extension RegisterViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Password Field Validation
+        if passwordField.text!.count <= 6 {
+            passwordField.layer.cornerRadius = 08
+            passwordField.layer.borderWidth = 3
+            passwordField.layer.borderColor = K.colors.dangerColor
+            passwordField.text = ""
+            passwordField.placeholder = "Kindly Use Strong Password"
+            signUpButton.isEnabled = false
+        } else {
+            passwordField.layer.cornerRadius = 08
+            passwordField.layer.borderWidth = 3
+            passwordField.layer.borderColor = K.colors.primaryColor
+            signUpButton.isEnabled = true
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+
+// MARK: - Country Code Picker Functionality
+extension RegisterViewController: CountryPickerViewControllerDelegate {
+    func countryPickerViewControllerDidCancel(_ countryPickerViewController: Planet.CountryPickerViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func countryPickerViewController(_ countryPickerViewController: Planet.CountryPickerViewController, didSelectCountry country: Planet.Country) {
+        countryCodeTextField.text = country.callingCode
+        dismiss(animated: true, completion: nil)
     }
     
     // Function that handles Country Code Functionality
@@ -42,7 +119,7 @@ class RegisterViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    // Loading Bsic Designs
+    // Custom Design
     func loadBasicDesigns() {
         // Setting up the Icons for Emailand Passwords in the left.
         emailIcon.image = UIImage(named: "mail")
@@ -59,7 +136,6 @@ class RegisterViewController: UIViewController {
         userContentView.addSubview(userIcon)
         passwordContentView.addSubview(lockIcon)
         reEnterPasswordContentView.addSubview(lockIcon2)
-        
         
         emailContentView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         emailIcon.frame = CGRect(x: -15, y: 0, width: 20, height: 20)
@@ -108,19 +184,6 @@ class RegisterViewController: UIViewController {
         reEnterPasswordField.layer.cornerRadius = 08
         reEnterPasswordField.layer.borderWidth = 3
         reEnterPasswordField.layer.borderColor = K.colors.primaryColor
-        
-    }
-}
-
-// MARK: - Country Code Picker Functionality
-extension RegisterViewController: CountryPickerViewControllerDelegate {
-    func countryPickerViewControllerDidCancel(_ countryPickerViewController: Planet.CountryPickerViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func countryPickerViewController(_ countryPickerViewController: Planet.CountryPickerViewController, didSelectCountry country: Planet.Country) {
-        countryCodeTextField.text = country.callingCode
-        dismiss(animated: true, completion: nil)
     }
     
 }

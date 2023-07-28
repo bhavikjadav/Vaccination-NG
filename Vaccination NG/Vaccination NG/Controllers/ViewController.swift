@@ -6,14 +6,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var resetPasswordLabel: UILabel!
-    @IBOutlet weak var createAccountLabel: UILabel!
     
     let emailIcon = UIImageView()
     let passwordIcon = UIImageView()
@@ -26,7 +25,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loginPressed(_ sender: UIButton) {
-        
+        if let email = emailTextField.text, let password = passwordField.text {
+            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                if let e = error {
+                    print(e)
+                } else {
+                    print("LoggedIn")
+                    self.performSegue(withIdentifier: K.segues.loginToHome, sender: self)
+                }
+            }
+        }
     }
     
     func loadBasicDesigns() {
@@ -51,17 +59,6 @@ class ViewController: UIViewController {
         
         passwordField.rightView = passwordContentView
         passwordField.rightViewMode = .always
-        
-        // Text / Labels Design
-        let resetPasswordUnderlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
-        let resetPasswordUnderlineAttributedString = NSAttributedString(string: "Reset Password", attributes: resetPasswordUnderlineAttribute)
-
-        resetPasswordLabel.attributedText = resetPasswordUnderlineAttributedString
-
-        let createAccountUnderlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
-        let createAccountUnderlineAttributedString = NSAttributedString(string: "Create Account", attributes: createAccountUnderlineAttribute)
-
-        createAccountLabel.attributedText = createAccountUnderlineAttributedString
         
         loginButton.titleLabel?.font = UIFont(name: K.colors.boldFont, size: 20)
         
