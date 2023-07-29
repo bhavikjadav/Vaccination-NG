@@ -18,6 +18,10 @@
 		04C7B59F2A7119BB00084541 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04C7B59D2A71140C00084541 /* Montserrat-Regular.ttf */; };
 		04C7B5A12A711FCB00084541 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7B5A02A711FCB00084541 /* Constants.swift */; };
 		04C7B5A42A71241E00084541 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7B5A32A71241E00084541 /* RegisterViewController.swift */; };
+		04D30D242A751C9600C8ABE2 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D30D212A751C9600C8ABE2 /* UIViewController + Extension.swift */; };
+		04D30D252A751C9600C8ABE2 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D30D222A751C9600C8ABE2 /* String + Extension.swift */; };
+		04D30D262A751C9600C8ABE2 /* UIAlertController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D30D232A751C9600C8ABE2 /* UIAlertController + Extension.swift */; };
+		04D30D292A75302D00C8ABE2 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 04D30D282A75302D00C8ABE2 /* ProgressHUD */; };
 		04DB8C162A73B96A00E982EC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB8C152A73B96A00E982EC /* HomeViewController.swift */; };
 		04DB8C182A73C02600E982EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04DB8C172A73C02600E982EC /* GoogleService-Info.plist */; };
 		04DB8C1B2A73C14000E982EC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 04DB8C1A2A73C14000E982EC /* FirebaseAuth */; };
@@ -40,6 +44,9 @@
 		04C7B59D2A71140C00084541 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../../../../../Downloads/montserrat (1)/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		04C7B5A02A711FCB00084541 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		04C7B5A32A71241E00084541 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		04D30D212A751C9600C8ABE2 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController + Extension.swift"; path = "../../../../../../Downloads/UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		04D30D222A751C9600C8ABE2 /* String + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String + Extension.swift"; path = "../../../../../../Downloads/String + Extension.swift"; sourceTree = "<group>"; };
+		04D30D232A751C9600C8ABE2 /* UIAlertController + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController + Extension.swift"; path = "../../../../../../Downloads/UIAlertController + Extension.swift"; sourceTree = "<group>"; };
 		04DB8C152A73B96A00E982EC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		04DB8C172A73C02600E982EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DC5B370FEFA7CCC49F6FAE1 /* Pods_Vaccination_NG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vaccination_NG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D30D292A75302D00C8ABE2 /* ProgressHUD in Frameworks */,
 				109CFD62DBEEB6672967FA2B /* Pods_Vaccination_NG.framework in Frameworks */,
 				04BF4F292A73E98700FB048B /* IQKeyboardManagerSwift in Frameworks */,
 				04DB8C1B2A73C14000E982EC /* FirebaseAuth in Frameworks */,
@@ -92,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				04BF4F232A73E2AB00FB048B /* Vaccination NG.entitlements */,
+				04D30D202A751C8100C8ABE2 /* Extensions */,
 				0497F0B02A72691000EDCC70 /* Views */,
 				04C7B5A22A7123F500084541 /* Controllers */,
 				04D73E0D2A6E81DA004611F2 /* Resources */,
@@ -113,6 +122,16 @@
 				04DB8C152A73B96A00E982EC /* HomeViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		04D30D202A751C8100C8ABE2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				04D30D222A751C9600C8ABE2 /* String + Extension.swift */,
+				04D30D232A751C9600C8ABE2 /* UIAlertController + Extension.swift */,
+				04D30D212A751C9600C8ABE2 /* UIViewController + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		04D73E0D2A6E81DA004611F2 /* Resources */ = {
@@ -171,6 +190,7 @@
 				04DB8C1A2A73C14000E982EC /* FirebaseAuth */,
 				04DB8C1C2A73C14000E982EC /* FirebaseFirestore */,
 				04BF4F282A73E98700FB048B /* IQKeyboardManagerSwift */,
+				04D30D282A75302D00C8ABE2 /* ProgressHUD */,
 			);
 			productName = "Vaccination NG";
 			productReference = 04C0DE742A6E74E300AC141A /* Vaccination NG.app */;
@@ -203,6 +223,7 @@
 			packageReferences = (
 				04DB8C192A73C14000E982EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				04BF4F272A73E98700FB048B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				04D30D272A75302C00C8ABE2 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 04C0DE752A6E74E300AC141A /* Products */;
 			projectDirPath = "";
@@ -278,10 +299,13 @@
 			files = (
 				04C0DE7C2A6E74E300AC141A /* ViewController.swift in Sources */,
 				04C7B5A42A71241E00084541 /* RegisterViewController.swift in Sources */,
+				04D30D252A751C9600C8ABE2 /* String + Extension.swift in Sources */,
 				04C0DE782A6E74E300AC141A /* AppDelegate.swift in Sources */,
+				04D30D242A751C9600C8ABE2 /* UIViewController + Extension.swift in Sources */,
 				04C0DE7A2A6E74E300AC141A /* SceneDelegate.swift in Sources */,
 				04C7B5A12A711FCB00084541 /* Constants.swift in Sources */,
 				04DB8C162A73B96A00E982EC /* HomeViewController.swift in Sources */,
+				04D30D262A751C9600C8ABE2 /* UIAlertController + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +539,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		04D30D272A75302C00C8ABE2 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 		04DB8C192A73C14000E982EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -530,6 +562,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 04BF4F272A73E98700FB048B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		04D30D282A75302D00C8ABE2 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04D30D272A75302C00C8ABE2 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 		04DB8C1A2A73C14000E982EC /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

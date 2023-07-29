@@ -9,6 +9,7 @@ import UIKit
 import Planet
 import FirebaseAuth
 import FirebaseFirestore
+import ProgressHUD
 
 class RegisterViewController: UIViewController {
     
@@ -30,6 +31,10 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ProgressHUD.dismiss()
+        
+        emailTextField.delegate = self
+        phoneNumberField.delegate = self
         passwordField.delegate = self
         
         // Country Code Selection Functionality
@@ -37,37 +42,74 @@ class RegisterViewController: UIViewController {
         
         // Loading Basic Designs
         loadBasicDesigns()
-        signUpButton.isEnabled = false
     }
     
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
         
         if let username = userNameTextField.text, let email = emailTextField.text, let countryCode = countryCodeTextField.text, let phoneNumber = phoneNumberField.text, let password = passwordField.text, let reEnteredPassword = reEnterPasswordField.text {
             
-            if password == reEnteredPassword {
-                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                    if let e = error {
-                        print(e)
-                    } else {
-                        print("Success")
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                if let e = error {
+                    
+                    if !email.validateEmailId() {
+                        
+                        self.openAlert(title: "Alert", message: "Invalid Email-Id", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                        self.emailTextField.layer.cornerRadius = 08
+                        self.emailTextField.layer.borderWidth = 3
+                        self.emailTextField.layer.borderColor = K.colors.dangerColor
+                        self.emailTextField.text = ""
+                        self.emailTextField.placeholder = "Kindly Provide valid email"
+                        
+                    } else if phoneNumber.count < 9 {
+                        
+                        self.openAlert(title: "Alert", message: "Invalid Phone Number", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                        self.phoneNumberField.layer.cornerRadius = 08
+                        self.phoneNumberField.layer.borderWidth = 3
+                        self.phoneNumberField.layer.borderColor = K.colors.dangerColor
+                        self.phoneNumberField.text = ""
+                        self.phoneNumberField.placeholder = "Kindly Provide valid phone number"
+                        
+                    } else if !password.validatePassword() {
+                        
+                        self.openAlert(title: "Alert", message: "Choose a Strong Password", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                        self.passwordField.layer.cornerRadius = 08
+                        self.passwordField.layer.borderWidth = 3
+                        self.passwordField.layer.borderColor = K.colors.dangerColor
+                        self.passwordField.text = ""
+                        self.passwordField.placeholder = "Choose a Strong Password"
                     }
-                }
-            }
-            
-            // Storing the user's data in the firebase cloud
-            var ref: DocumentReference? = nil
-            ref = db.collection("users").addDocument(data: [
-                "username": username,
-                "email": email,
-                "country_code": countryCode,
-                "phone_number": phoneNumber
-            ]) { err in
-                if let err = err {
-                    print("Error adding document: \(err)")
                 } else {
-                    print("Document added with ID: \(ref!.documentID)")
+                    
+                    // Storing the user's data in the firebase cloud
+                    var ref: DocumentReference? = nil
+                    ref = self.db.collection("users").addDocument(data: [
+                        "username": username,
+                        "email": email,
+                        "country_code": countryCode,
+                        "phone_number": phoneNumber
+                    ]) { err in
+                        if let err = err {
+                            print("Error adding document: \(err)")
+                        } else {
+                            print("Document added with ID: \(ref!.documentID)")
+                        }
+                    }
+                    self.performSegue(withIdentifier: K.segues.registerToHome, sender: self)
                 }
             }
+        } else {
+            self.openAlert(title: "Alert", message: "Kindly provide neccessary details", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                print("Okay Clicked.")
+            }])
         }
     }
 }
@@ -76,20 +118,18 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // Password Field Validation
-        if passwordField.text!.count <= 6 {
-            passwordField.layer.cornerRadius = 08
-            passwordField.layer.borderWidth = 3
-            passwordField.layer.borderColor = K.colors.dangerColor
-            passwordField.text = ""
-            passwordField.placeholder = "Kindly Use Strong Password"
-            signUpButton.isEnabled = false
-        } else {
-            passwordField.layer.cornerRadius = 08
-            passwordField.layer.borderWidth = 3
-            passwordField.layer.borderColor = K.colors.primaryColor
-            signUpButton.isEnabled = true
-        }
+        
+        self.emailTextField.layer.cornerRadius = 08
+        self.emailTextField.layer.borderWidth = 3
+        self.emailTextField.layer.borderColor = K.colors.primaryColor
+        
+        self.passwordField.layer.cornerRadius = 08
+        self.passwordField.layer.borderWidth = 3
+        self.passwordField.layer.borderColor = K.colors.primaryColor
+        
+        self.phoneNumberField.layer.cornerRadius = 08
+        self.phoneNumberField.layer.borderWidth = 3
+        self.phoneNumberField.layer.borderColor = K.colors.primaryColor
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -98,7 +138,8 @@ extension RegisterViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - Country Code Picker Functionality
+
+// MARK: - Country Code Picker Functionality & Basic Design
 extension RegisterViewController: CountryPickerViewControllerDelegate {
     func countryPickerViewControllerDidCancel(_ countryPickerViewController: Planet.CountryPickerViewController) {
         dismiss(animated: true, completion: nil)

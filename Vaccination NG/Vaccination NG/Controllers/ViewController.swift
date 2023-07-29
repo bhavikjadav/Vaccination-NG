@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import ProgressHUD
 
 class ViewController: UIViewController {
 
@@ -29,10 +30,46 @@ class ViewController: UIViewController {
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if let e = error {
                     print(e)
+                    if !email.validateEmailId() {
+                        
+                        self.openAlert(title: "Alert", message: "Email Address not found!", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                    } else if e.localizedDescription == "The password is invalid or the user does not have a password." {
+                        
+                        self.openAlert(title: "Alert", message: "Wrong Password", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                    } else if e.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
+                        
+                        self.openAlert(title: "Alert", message: "Email not found", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                            print("Okay Clicked.")
+                        }])
+                        
+                    }
                 } else {
-                    print("LoggedIn")
+//                    let progress = ProgressHUD.animationType = AnimationType.lineSpinFade
+                    ProgressHUD.colorAnimation = UIColor.systemBlue
+                    ProgressHUD.show()
                     self.performSegue(withIdentifier: K.segues.loginToHome, sender: self)
+                    print("LoggedIn")
+                    
                 }
+            }
+        } else {
+            self.openAlert(title: "Alert", message: "Kindly enter Email and Password", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                print("Okay Clicked.")
+            }])
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.segues.loginToHome {
+            if let sendingToHomeVC = segue.destination as? HomeViewController {
+                let sendingEmail = emailTextField.text
+                sendingToHomeVC.emailFromLogin = sendingEmail!
             }
         }
     }
