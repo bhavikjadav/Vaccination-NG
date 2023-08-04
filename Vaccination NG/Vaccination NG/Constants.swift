@@ -12,7 +12,7 @@ struct K {
     
     struct segues {
         static let loginToHome = "loginToHome"
-        static let registerToHome = "registerToHome"
+        static let registerToVerification = "registerToVerification"
     }
     
     struct colors {

@@ -127,7 +127,7 @@ class RegisterViewController: UIViewController {
                                 print("Document added with ID: \(ref!.documentID)")
                             }
                         }
-                        self.performSegue(withIdentifier: K.segues.registerToHome, sender: self)
+                        self.performSegue(withIdentifier: K.segues.registerToVerification, sender: self)
                     }
                 }
             }
